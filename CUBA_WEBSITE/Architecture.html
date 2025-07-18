@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Architecture - Cultural Tourism Cuba</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>Exploring Cuba’s Architectural Soul</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="nature.html">Nature</a></li>
+        <li><a href="gastronomy.html">Gastronomy</a></li>
+        <li><a href="music.html">Music</a></li>
+        <li><a href="architecture.html">Architecture</a></li>
+        <li><a href="faq.html">FAQs</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Columns & Colors</h2>
+    <p>Step into a storybook of styles as you explore Cuba’s stunning architecture, where centuries of culture meet in every arch and avenue. Wander Old Havana’s cobblestone streets surrounded by vibrant Spanish colonial facades, now UNESCO-protected and brimming with character. Marvel at Baroque churches, Neoclassical mansions, and Art Deco gems that speak to Cuba’s cosmopolitan past and revolutionary spirit.
+
+Each neighborhood offers something unique—Trinidad’s pastel houses echo the 19th century sugar boom, while Havana’s Malecón is framed by a colorful mix of crumbling grandeur and modern vitality. Guided walking tours and local restoration projects invite travelers to experience not just the beauty, but the resilience behind these structures.
+
+In Cuba, architecture doesn’t stand still—it sings, dances, and tells its story. Let the walls talk.</p>
+<img src="images/Habana.jpg" alt="Casco Viejo" width="400">
+  </main>
+<main> 
+<h2>Urban Elegance of Timeless Architecture</h2>
+    <p>Step into a living museum of design where Spanish colonial charm meets Caribbean flair. In cities like Havana, Trinidad, and Cienfuegos, pastel-hued facades, wrought-iron balconies, and grand archways tell stories of centuries past. Explore UNESCO-listed Old Havana, where cobblestone streets lead to Baroque cathedrals and Neoclassical mansions—each one a masterpiece of resilience and beauty. </p>
+<img src="images/oldhavana.jpg" alt="facade of Old Havana" width="300">
+</main>
+<main>
+<h2>Monuments of History and Revolution</h2>
+    <p>Cuba’s monuments are more than stone and bronze—they’re chapters of a nation’s soul. Visit the towering José Martí Memorial in Havana’s Plaza de la Revolución, or pay tribute at the Che Guevara Mausoleum in Santa Clara. From colonial fortresses like El Morro Castle to modern tributes like Cristo de La Habana, each landmark invites reflection and awe. </p>
+<img src="images/cristo.jpg" alt="Cristo de La Habana" width="400">
+</main>
+<main> 
+<h2>Precious Plazas</h2>
+    <p> Cuba’s plazas are the heartbeats of its cities. In Plaza Vieja, Havana’s architectural kaleidoscope surrounds lively cafés and art galleries. Plaza de la Catedral stuns with its Baroque cathedral and colonial mansions, while Plaza de Armas offers leafy respite and a bustling book market. These squares aren’t just scenic—they’re stages for daily Cuban life. </p>
+<img src="images/plazavieja.jpg" alt="Plaza Vieja in Havana" width="300">
+</main>
+<main>
+<h2>Carros Clásicos</h2>
+    <p> Though not technically a part of the island's architecture in a traditional sense, nowhere else in the world will you find streets lined with 1950s Chevrolets, Buicks, and Fords in dazzling colors. These vintage beauties aren’t just for show—they’re an integral part of Cuba’s identity. Take a ride in a convertible along Havana’s Malecón or book a guided tour through Viñales in a cherry-red Bel Air. Cuba’s classic cars are a tribute to ingenuity, nostalgia, and style.</p>
+<img src="images/carro.jpg" alt="Classic Car in Cuba" width="400">
+</main>
+<main>
+<h2>Modernist Magnificence</h2>
+    <p> Beyond colonial charm, Cuba surprises with bold 20th-century design. Admire the Bacardi Building, a gleaming Art Deco gem in Havana, or explore the National Theatre of Cuba, where neoclassical grandeur meets cultural vibrancy. These structures reflect Cuba’s cosmopolitan past and its creative present. </p>
+<img src="images/artdeco.jpg" alt="Bacardi Building" width="300">
+</main>
+<main>
+<h2>Guardians of the Caribbean</h2>
+    <p>Cuba’s coastline is dotted with formidable fortresses built to defend against pirates and invaders. Explore Castillo de la Real Fuerza, one of the oldest stone forts in the Americas, or climb the ramparts of La Cabaña, a sprawling stronghold overlooking Havana Bay. These sites blend architectural might with panoramic views. </p>
+<img src="images/castillo.jpg" alt="Castillo de la Real Fuerza" width="300">
+</main>
+  <footer>
+    <p>© 2025 Cultural Tourism Cuba</p>
+  </footer>
+<script>
+  const knowledgeGraph = [
+    {
+      name: "Havana",
+      type: "City",
+      description: "Capital of Cuba and cultural hub.",
+      landmarks: ["El Morro Castle", "Cristo de La Habana", "Bacardi Building", "Castillo de la Real Fuerza", "La Cabaña"]
+    },
+    {
+      name: "Trinidad",
+      type: "City",
+      description: "UNESCO World Heritage Site known for its colonial architecture.",
+      landmarks: []
+    },
+    {
+      name: "Cienfuegos",
+      type: "City",
+      description: "Known for its French-inspired architecture and bay.",
+      landmarks: []
+    },
+    {
+      name: "José Martí Memorial",
+      type: "Monument",
+      description: "A memorial dedicated to Cuban national hero José Martí.",
+      location: "Havana"
+    },
+    {
+      name: "Che Guevara Mausoleum",
+      type: "Monument",
+      description: "Resting place of Che Guevara in Santa Clara.",
+      location: "Santa Clara"
+    },
+    {
+      name: "El Morro Castle",
+      type: "Fortress",
+      description: "Historic fortress guarding Havana Bay.",
+      location: "Havana"
+    },
+    {
+      name: "Cristo de La Habana",
+      type: "Statue",
+      description: "A large Christ statue overlooking Havana.",
+      location: "Havana"
+    },
+    {
+      name: "Bacardi Building",
+      type: "Building",
+      description: "Art Deco landmark built in the 1930s.",
+      location: "Havana"
+    },
+  {
+      name: "National Theatre of Cuba",
+      type: "Building",
+      description: "Neoclassical Theatre on Plaza de la Revolución.",
+      location: "Havana"
+    },
+    {
+      name: "Castillo de la Real Fuerza",
+      type: "Fortress",
+      description: "Oldest stone fort in the Americas.",
+      location: "Havana"
+    }, 
+{
+      name: "Plaza de la Catedral",
+      type: "Plaza",
+      description: "Contains Baroque 1770s catherdral.",
+      location: "Havana"
+    }, 
+{
+      name: "Plaza de la Revolución",
+      type: "Plaza",
+      description: "One of the largest plazas in the world.",
+      location: "Havana"
+    }, 
+{
+      name: "PLaza Vieja",
+      type: "Plaza",
+      description: "A 1559 Plaza mixing art nouveau  and Cuban baroque architecture.",
+      location: "Havana"
+    },
+    {
+      name: "La Cabaña",
+      type: "Fortress",
+      description: "18th-century fortress and museum complex.",
+      location: "Havana"
+    }
+  ];
+</script>
+ <h1>Filter the Cultural Experience</h1>
+
+  <label for="typeFilter">Filter by Type:</label>
+  <select id="typeFilter">
+    <option value="All">All</option>
+    <option value="City">City</option>
+    <option value="Monument">Monument</option>
+    <option value="Fortress">Fortress</option>
+    <option value="Statue">Statue</option>
+    <option value="Building">Building</option>
+<option value="Plaza">Plaza</option>
+  </select>
+
+  <div id="results"></div>
+
+  <script>
+    const filterSelect = document.getElementById("typeFilter");
+    const resultsDiv = document.getElementById("results");
+
+    function displayResults(data) {
+      resultsDiv.innerHTML = "";
+      data.forEach(entry => {
+        const element = document.createElement("div");
+        element.innerHTML = `<h3>${entry.name}</h3><p><strong>Type:</strong> ${entry.type}</p><p>${entry.description}</p>`;
+        resultsDiv.appendChild(element);
+      });
+    }
+
+    // Initial load
+    displayResults(knowledgeGraph);
+
+    // Filter interaction
+    filterSelect.addEventListener("change", () => {
+      const selectedType = filterSelect.value;
+      if (selectedType === "All") {
+        displayResults(knowledgeGraph);
+      } else {
+        const filtered = knowledgeGraph.filter(item => item.type === selectedType);
+        displayResults(filtered);
+      }
+    });
+  </script>
+ <h2>Explore the Knowledge Graph</h2>
+<div id="knowledgeGraph" style="width: 100%; height: 500px; border: 1px solid #ccc; margin-top: 20px;"></div>
+
+  <p>Visualize the relationships between cities and landmarks in Cuba.</p>
+<script>
+  // Define nodes (cities and landmarks)
+  const nodes = new vis.DataSet([
+    { id: 1, label: "Havana", group: "City" },
+    { id: 2, label: "Trinidad", group: "City" },
+    { id: 3, label: "Cienfuegos", group: "City" },
+    { id: 4, label: "José Martí Memorial", group: "Monument" },
+    { id: 5, label: "Che Guevara Mausoleum", group: "Monument" },
+    { id: 6, label: "El Morro Castle", group: "Fortress" },
+    { id: 7, label: "Cristo de La Habana", group: "Statue" },
+    { id: 8, label: "Bacardi Building", group: "Building" },
+    { id: 9, label: "Castillo de la Real Fuerza", group: "Fortress" },
+    { id: 10, label: "La Cabaña", group: "Fortress" },
+  ]);
+
+  // Define edges (connections between landmarks and cities)
+  const edges = new vis.DataSet([
+    { from: 4, to: 1, label: "located in" },
+    { from: 5, to: 3, label: "located in" },
+    { from: 6, to: 1, label: "located in" },
+    { from: 7, to: 1, label: "located in" },
+    { from: 8, to: 1, label: "located in" },
+    { from: 9, to: 1, label: "located in" },
+    { from: 10, to: 1, label: "located in" }
+  ]);
+
+  // Get the container div
+  const container = document.getElementById("knowledgeGraph");
+
+  // Prepare data and options for the graph
+  const data = { nodes: nodes, edges: edges };
+const options = {
+  nodes: {
+    shape: 'dot',
+    size: 20,
+    font: { size: 14, multi: 'html' }, // allows multiline labels
+    margin: 10 // adds padding around the label text
+  },
+  edges: {
+    arrows: {
+      to: { enabled: true, scaleFactor: 0.5 }
+    },
+    font: { align: 'top' },
+    smooth: { enabled: true, type: 'curvedCW', roundness: 0.3 }
+  },
+  groups: {
+    City: { color: '#FFD700' },
+    Monument: { color: '#FF69B4' },
+    Fortress: { color: '#00BFFF' },
+    Statue: { color: '#ADFF2F' },
+    Building: { color: '#FF8C00' }
+  },
+  physics: {
+    enabled: true,
+    barnesHut: {
+      gravitationalConstant: -8000, // increase negative for more repulsion
+      springLength: 300,            // increase for more distance between nodes
+      springConstant: 0.04,
+      damping: 0.09
+    },
+    stabilization: { iterations: 250 }
+  },
+  interaction: { hover: true, tooltipDelay: 200, navigationButtons: true, keyboard: true }
+};
+
+  // Create the network
+  new vis.Network(container, data, options);
+</script>
+
+</body>
+</html>

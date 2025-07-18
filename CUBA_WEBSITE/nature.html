@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nature - Cultural Tourism Cuba</title>
+  <link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+</head>
+<body>
+
+  <header>
+    <h1>Nature of Cuba</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="nature.html">Nature</a></li>
+        <li><a href="gastronomy.html">Gastronomy</a></li>
+        <li><a href="music.html">Music</a></li>
+        <li><a href="architecture.html">Architecture</a></li>
+        <li><a href="faq.html">FAQs</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Natural Landscapes</h2>
+    <p>Cuba is more than just vibrant streets and classic cars—it’s a sanctuary of untouched beauty, where nature pulses with rhythm and resilience. From the mist-draped mountains of Viñales to the sun-drenched coral reefs of Jardines de la Reina, this island invites you to lose yourself in landscapes that feel utterly timeless. Explore lush forests teeming with endemic birds, glide through mangrove tunnels, and marvel at waterfalls that tumble into emerald pools. Whether you crave serenity or adventure, Cuba’s natural wonders offer a breath of fresh air and a glimpse into a world where wildness thrives.</p>
+<img src="images/cuba nature.jpg" alt="Hills of Cuba" width="500">
+
+ 
+  <h2>Cuban Beaches: Turquoise and Tranquility </h2>
+  <p>Cuba boasts over 3,500 miles of coastline and more than 430 beaches, each offering its own slice of paradise. From the powdery white sands of Varadero to the secluded serenity of Playa Paraíso in Cayo Largo del Sur, these shores are perfect for sunbathing, snorkeling, or simply soaking in the Caribbean breeze. The coral reefs of Jardines de la Reina, a protected marine park, are among the healthiest in the region, teeming with vibrant fish, sea turtles, and reef sharks. Whether you're diving into underwater caves or sipping coconut cocktails on the sand, Cuba’s beaches are a balm for the soul.</p>
+<img src="images/beach.jpg" alt="Paraiso Beach Cuba" width="500">
+
+
+<h2> Forests and National Parks</h2> 
+<p> Cuba is home to 14 national parks and nearly 200 protected areas, covering everything from misty mountain ranges to dense tropical forests. Explore the Viñales Valley, a UNESCO World Heritage Site known for its dramatic limestone mogotes and tobacco farms. Hike through Topes de Collantes in the Escambray Mountains, where waterfalls and orchids await around every bend. Or venture into Alejandro de Humboldt National Park, one of the most biologically diverse ecosystems in the Caribbean, offering trails through untouched rainforest and glimpses of rare wildlife.</p>
+<img src="images/topes-de-collantes.jpg" alt="Waterfall in Topes de Collantes" width="500">
+
+<h2> Cuban Biodiversity </h2> 
+Cuba is a biodiversity hotspot, with over 6,000 plant species—half of which are found nowhere else—and a rich array of wildlife including manatees, crocodiles, and more than 370 bird species6. Its unique location at the crossroads of the Atlantic, Caribbean, and Gulf of Mexico makes it a vital ecological hub. The island’s coral reefs, mangroves, and wetlands not only support marine life but also protect coastal communities from erosion and storms. Conservation efforts have kept many of Cuba’s ecosystems healthier than those in neighboring regions.</p>
+
+<img src="images/coralreef.jpg" alt="Jardines de la Reina="100">
+
+<h2> Endemic Species of Cuba </h2> 
+Cuba is home to over 40 endemic animal species, including the dazzling Cuban Trogon (the national bird), the tiny Bee Hummingbird—the smallest bird on Earth—and the elusive Zapata Wren, found only in the Zapata Swamp. Reptiles like the Cuban Crocodile and amphibians such as the Monte Iberia Eleuth, one of the world’s smallest frogs, add to the island’s rare and remarkable fauna. These species thrive in Cuba’s protected habitats, offering nature lovers a chance to witness wildlife found nowhere else on the planet.</p>
+
+<img src="images/bird.jpg" alt="Colorful Bird" width="400">
+<section>
+  <h2>Endemic Species</h2>
+  <div id="endemic-species">Loading...</div>
+</section>
+
+<section>
+  <h2>National Parks</h2>
+  <div id="map" style="height: 500px;"></div>
+</section>
+
+</main>
+
+  <footer>
+    <p>© 2025 Cultural Tourism Cuba</p>
+  </footer>
+<!-- Leaflet CSS and JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // --- Endemic Species SPARQL Query ---
+  const speciesQuery = `
+    SELECT ?species ?speciesLabel ?image WHERE {
+      ?species wdt:P105 wd:Q7432;
+               wdt:P183 wd:Q241.
+      OPTIONAL { ?species wdt:P18 ?image. }
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    }
+    LIMIT 8
+  `;
+
+  fetch("https://query.wikidata.org/sparql?query=" + encodeURIComponent(speciesQuery), {
+    headers: { Accept: "application/sparql-results+json" }
+  })
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("endemic-species");
+    container.innerHTML = "";
+    data.results.bindings.forEach(item => {
+      const card = document.createElement("div");
+      card.style.border = "1px solid #ccc";
+      card.style.padding = "10px";
+      card.style.margin = "10px";
+      card.style.borderRadius = "8px";
+      card.style.display = "inline-block";
+      card.style.textAlign = "center";
+
+      if (item.image) {
+        const img = document.createElement("img");
+        img.src = item.image.value;
+        img.alt = item.speciesLabel.value;
+        img.style.width = "150px";
+        img.style.height = "auto";
+        card.appendChild(img);
+      }
+
+      const label = document.createElement("p");
+      label.textContent = item.speciesLabel.value;
+      card.appendChild(label);
+
+      container.appendChild(card);
+    });
+  })
+  .catch(err => {
+    document.getElementById("endemic-species").innerText = "Failed to load species.";
+    console.error(err);
+  });
+
+  // --- Leaflet Map + Cuba National Parks ---
+  const map = L.map('map').setView([21.5, -79.5], 6);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  const parksQuery = `
+    SELECT ?park ?parkLabel ?coord WHERE {
+      ?park wdt:P31 wd:Q46169;     # Instance of national park
+            wdt:P17 wd:Q241;       # Located in Cuba
+            wdt:P625 ?coord.       # Has coordinates
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    }
+    LIMIT 10
+  `;
+
+  fetch("https://query.wikidata.org/sparql?query=" + encodeURIComponent(parksQuery), {
+    headers: { Accept: "application/sparql-results+json" }
+  })
+  .then(res => res.json())
+  .then(data => {
+    data.results.bindings.forEach(item => {
+      const coords = item.coord.value.replace("Point(", "").replace(")", "").split(" ");
+      const lon = parseFloat(coords[0]);
+      const lat = parseFloat(coords[1]);
+
+      L.marker([lat, lon])
+        .addTo(map)
+        .bindPopup(item.parkLabel.value);
+    });
+  })
+  .catch(err => {
+    console.error("Map error:", err);
+  });
+});
+</script>
+
+</body>
+</html>

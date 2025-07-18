@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Music - Cultural Tourism Cuba</title>
+  <link rel="stylesheet" href="styles.css" />
+<style>
+  #musician-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: white;
+    padding: 10px;
+    width: 180px;
+    text-align: center;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+  }
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 4px 4px 12px rgba(0,0,0,0.15);
+  }
+  .card img {
+    max-width: 160px;
+    max-height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  .card h3 {
+    font-size: 1.1em;
+    margin: 0 0 5px 0;
+  }
+  .card p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #555;
+  }
+</style>
+
+</head>
+<body>
+
+  <header>
+    <h1>The Soundtrack of Cuba</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="nature.html">Nature</a></li>
+        <li><a href="gastronomy.html">Gastronomy</a></li>
+        <li><a href="music.html">Music</a></li>
+        <li><a href="architecture.html">Architecture</a></li>
+        <li><a href="faq.html">FAQs</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Music and Baile</h2>
+    <p>For travelers craving culture with a heartbeat, Cuba offers an unforgettable music and dance experience woven into its cities, streets, and sunsets. In Havana, live bands serenade guests in open-air casas de la música, while dancers ignite the stage with passionate salsa and rumba—a must-see at the legendary Tropicana cabaret. Over in Trinidad, cobblestone squares come alive as locals and visitors groove to infectious rhythms in spontaneous street parties.
+
+Interested in learning the moves? Many resorts and cultural centers offer dance workshops led by local pros who’ll get you spinning in no time. Music lovers should also visit Santiago de Cuba, the birthplace of son cubano, for vibrant festivals like the July Festival del Caribe, where performances flood the city with color and soul.
+
+Whether you join a dance circle or just tap your toes with a mojito in hand, Cuba’s musical spirit wraps around you, turning every moment into a celebration.</p>
+<img src="images/dancers.jpg" alt="Carnaval Santiago de Cuba" width="400">
+  </main>
+<main> 
+<h2>Traditional Cuban Music</h2>
+    <p> Cuba’s musical roots run deep, shaped by centuries of African and Spanish influence that gave rise to iconic genres like son cubano, danzón, bolero, and rumba. These styles blend poetic lyrics, syncopated rhythms, and vibrant instrumentation—think tres guitars, conga drums, and maracas—to create a sound that’s unmistakably Cuban.
+
+Legendary artists like Beny Moré, known for his velvety voice and timeless boleros, and Compay Segundo, whose song Chan Chan became a global anthem through the Buena Vista Social Club, helped define Cuba’s musical identity. Other classics like Guantanamera and Lágrimas Negras continue to echo through plazas and patios, connecting generations through melody.
+
+Whether performed in a quiet courtyard or a lively casa de la trova, traditional Cuban music is more than entertainment—it’s a living archive of the island’s history, spirit, and pride. </p>
+
+<img src="images/music.jpg" alt="Havana Musician" width="300">
+
+</main>
+
+<main>
+
+<h2>Dance Under Las Estrellas</h2>
+    <p> Don’t just watch—join in! Cuba offers countless chances to move your feet. Catch world-class performances at Havana’s iconic Tropicana cabaret or jump into a community street party where salsa is shared like joy. Wherever you go, the dance floor finds you. </p>
+
+<img src="images/tropicana.jpg" alt="Cuban Cabaret" width="300">
+</main>
+<main> 
+<h2>Casas de la Música</h2>
+    <p> Visit one of Cuba’s legendary casas de la música, open-air venues where locals gather to celebrate their heritage through rhythm. These venues host nightly performances ranging from traditional son cubano to energetic timba, creating an atmosphere that’s as warm and inviting as it is electrifying. Whether you’re dancing with friends or swaying solo with a cocktail in hand, it’s the perfect place to connect with the heartbeat of Cuban culture and catch some of the country's most talented musicians live. </p>
+
+<img src="images/casadelamusica.jpg" alt="Casas de la Música" width="400">
+</main>
+<main>
+<h2>Festival del Caribe</h2>
+    <p> Plan your trip around Santiago de Cuba’s Festival del Caribe, held every July. Known for its explosive performances, dazzling costumes, and city-wide revelry, this festival honors the island’s musical soul like no other. </p> 
+
+<img src="images/portada.jpg" alt="Festival del Caribe" width="400">
+</main>
+<main>
+<h2>Learn from the Best</h2>
+    <p> Want to turn rhythm into skill? Resorts and cultural centers across the island offer hands-on dance workshops led by seasoned Cuban pros. From beginner steps to full-on choreographies, you'll leave with moves—and memories. </p> 
+
+<img src="images/dance-class.jpg" alt="Dance Class afrobeats" width="300">
+<section id="musician-gallery">
+  <h2>Famous Cuban Musicians</h2>
+  <div id="musician-cards">
+    <!-- Musician cards will be inserted here by JavaScript -->
+  </div>
+</section>
+
+</main>
+
+<script>
+  const endpointUrl = "https://query.wikidata.org/sparql";
+  const sparqlQuery = `
+    SELECT ?musician ?musicianLabel ?image ?birthYear ?genderLabel WHERE {
+      ?musician wdt:P31 wd:Q5;           # human
+                wdt:P27 wd:Q241;         # nationality Cuba
+                wdt:P106 wd:Q639669;     # musician
+                wdt:P18 ?image;          # has image
+                wdt:P21 ?gender.         # gender
+      VALUES ?gender { wd:Q6581097 wd:Q6581072 } # male or female
+
+      OPTIONAL {
+        ?musician wdt:P569 ?birthDate.
+        BIND(YEAR(?birthDate) AS ?birthYear)
+      }
+      
+      SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+    }
+    LIMIT 10
+  `;
+
+  async function fetchData() {
+    try {
+      const response = await fetch(endpointUrl + "?query=" + encodeURIComponent(sparqlQuery), {
+        headers: { "Accept": "application/sparql-results+json" }
+      });
+      const data = await response.json();
+      const results = data.results.bindings;
+      const container = document.getElementById("musician-cards");
+      container.innerHTML = "";
+
+      results.forEach(musician => {
+        const name = musician.musicianLabel.value;
+        const img = musician.image.value;
+        const birthYear = musician.birthYear ? musician.birthYear.value : "N/A";
+
+        const card = `
+          <div class="card">
+            <img src="${img}" alt="${name}" />
+            <h3>${name}</h3>
+            <p>Born: ${birthYear}</p>
+          </div>
+        `;
+        container.innerHTML += card;
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      document.getElementById("musician-cards").innerHTML = "<p>Failed to load musician data.</p>";
+    }
+  }
+
+  fetchData();
+</script>
+  <footer>
+    <p>© 2025 Cultural Tourism Cuba</p>
+  </footer> 
+</body>
+</html>

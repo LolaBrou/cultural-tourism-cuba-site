@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQs - Cultural Tourism Cuba</title>
+  <link rel="stylesheet" href="styles.css" />
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+/>
+
+</head>
+<body>
+
+  <header>
+    <h1>Frequently Asked Questions</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="nature.html">Nature</a></li>
+        <li><a href="gastronomy.html">Gastronomy</a></li>
+        <li><a href="music.html">Music</a></li>
+        <li><a href="architecture.html">Architecture</a></li>
+        <li><a href="faq.html">FAQs</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Do I need a visa to visit Cuba?</h2>
+      <p>Most travelers need a tourist card (tarjeta del turista) to enter Cuba. Check with your country’s embassy for specific requirements.</p>
+    </section>
+
+    <section>
+      <h2>What currency is used in Cuba?</h2>
+      <p>Cuba uses the Cuban Peso (CUP). Tourists used to use CUC, but it's no longer in circulation. Many places prefer cash, so bring enough.</p>
+    </section>
+
+    <section>
+      <h2>Is it safe to travel in Cuba?</h2>
+      <p>Yes, Cuba is considered one of the safest countries in Latin America. Petty theft can happen, so take normal precautions.</p>
+    </section>
+
+    <section>
+      <h2>Can I use my credit card in Cuba?</h2>
+      <p>Many U.S.-issued cards do not work in Cuba. Bring cash and change it locally at official exchange houses (CADECA).</p>
+    </section>
+
+    <section>
+      <h2>What’s the best time to visit Cuba?</h2>
+      <p>November to April is the dry season and the best time to visit. The summer months are hot and humid, with a risk of hurricanes.</p>
+    </section>
+
+    <section>
+      <h2>Is internet access available?</h2>
+      <p>Internet is available but limited. You’ll need to buy a prepaid ETECSA card to use Wi-Fi hotspots around towns and hotels.</p>
+    </section>
+<section>
+      <h2>Can Americans travel to Cuba in 2025?</h2>
+      <p>Yes, but not for traditional tourism. U.S. citizens must travel under one of 12 authorized categories defined by the U.S. Department of Treasury’s Office of Foreign Assets Control (OFAC), such as:
+
+Support for the Cuban People
+Educational or religious activities
+Family visits
+Humanitarian projects
+Journalistic or professional research.</p>
+    </section>
+<section>
+ <section>
+  <h2>Major Airports in Cuba</h2>
+  <div id="cuban-airports">Loading...</div>
+</section>
+<section>
+  <h2>Airports Map of Cuba</h2>
+  <div id="map" style="height: 500px; max-width: 800px; margin-bottom: 2em;"></div>
+</section>
+
+  </main>
+  <footer>
+    <p>&copy; 2025 Cultural Tourism Cuba. All rights reserved.</p>
+  </footer>
+<script>
+const endpointUrl = "https://query.wikidata.org/sparql";
+const sparqlQuery = `
+  SELECT ?airport ?airportLabel WHERE {
+    ?airport wdt:P31 wd:Q1248784;       # instance of airport
+             wdt:P17 wd:Q241.           # country Cuba
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  }
+  LIMIT 10
+`;
+
+fetch(endpointUrl + '?query=' + encodeURIComponent(sparqlQuery), {
+  headers: { 'Accept': 'application/sparql-results+json' }
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error('SPARQL query failed');
+  }
+  return response.json();
+})
+.then(data => {
+  const container = document.getElementById("cuban-airports");
+  container.innerHTML = "";
+
+  if (data.results.bindings.length === 0) {
+    container.textContent = "No results found.";
+    return;
+  }
+
+  data.results.bindings.forEach(item => {
+    const card = document.createElement("div");
+    card.style.border = "1px solid #ccc";
+    card.style.padding = "1em";
+    card.style.margin = "0.5em 0";
+    card.style.borderRadius = "8px";
+    card.style.backgroundColor = "#f9f9f9";
+    card.style.boxShadow = "2px 2px 5px rgba(0,0,0,0.1)";
+
+    const name = document.createElement("h3");
+    name.textContent = item.airportLabel.value;
+
+    const button = document.createElement("a");
+    button.href = item.airport.value;
+    button.target = "_blank";
+    button.textContent = "Learn more";
+    button.style.display = "inline-block";
+    button.style.marginTop = "0.5em";
+    button.style.padding = "0.4em 0.8em";
+    button.style.backgroundColor = "#0077cc";
+    button.style.color = "white";
+    button.style.textDecoration = "none";
+    button.style.borderRadius = "4px";
+
+    card.appendChild(name);
+    card.appendChild(button);
+    container.appendChild(card);
+  });
+})
+.catch(error => {
+  document.getElementById("cuban-airports").innerHTML = "Failed to load data.";
+  console.error("SPARQL fetch error:", error);
+});
+</script>
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
+<script>
+const endpointUrlMap = "https://query.wikidata.org/sparql";
+const sparqlQueryMap = `
+  SELECT ?airport ?airportLabel ?coord WHERE {
+    ?airport wdt:P31 wd:Q1248784;
+             wdt:P17 wd:Q241;
+             wdt:P625 ?coord.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+  }
+  LIMIT 100
+`;
+
+fetch(endpointUrlMap + "?query=" + encodeURIComponent(sparqlQueryMap), {
+  headers: { Accept: "application/sparql-results+json" },
+})
+  .then((response) => response.json())
+  .then((data) => {
+    // Initialize Leaflet map centered on Cuba
+    const map = L.map("map").setView([21.5, -79.9], 7);
+
+    // Add OpenStreetMap tiles
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 18,
+    }).addTo(map);
+
+    // Add markers for each airport
+    data.results.bindings.forEach((item) => {
+      const coords = item.coord.value; // "Point(lon lat)"
+      const matches = coords.match(/Point\((-?\d+\.?\d*) (-?\d+\.?\d*)\)/);
+      if (matches) {
+        const lon = parseFloat(matches[1]);
+        const lat = parseFloat(matches[2]);
+
+        const marker = L.marker([lat, lon]).addTo(map);
+        marker.bindPopup(
+          `<b>${item.airportLabel.value}</b><br><a href="${item.airport.value}" target="_blank">More info</a>`
+        );
+      }
+    });
+  })
+  .catch((error) => {
+    console.error("Map SPARQL fetch error:", error);
+    document.getElementById("map").innerHTML = "Failed to load map data.";
+  });
+</script>
+</body>
+</html>
